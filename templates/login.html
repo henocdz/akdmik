@@ -1,0 +1,29 @@
+{% load url from future %}
+{% load staticfiles %}
+<!DOCTYPE html>
+<html>
+<head>
+	<title>AKDMIK | Entrar</title>
+	<link rel="stylesheet" type="text/css" href="{% static 'util/bootstrap/css/bootstrap.css' %}">
+	<link rel="stylesheet" type="text/css" href="{% static 'css/plain.css' %}">
+</head>
+<body>
+
+	<header>
+		<img src="{% static 'img/logo.png' %}" alt="Akdmik" />
+	</header>
+
+
+	<section id="formi">
+		<form  method="POST" action="{% url 'login' %}"> 
+			{% csrf_token %}
+			<input type="text" name="user" placeholder="Usuario/Boleta" autocomplet="off" >
+			<input type="password" name="password" placeholder="Contrase&ntilde;a" autocomplete="off" >
+			{% if error %}
+				<div class="status alert alert-danger">{{error}}</div>
+			{% endif %}
+			<input type="submit" value="Entrar" >
+		</form>
+	</section>
+</body>
+</html>

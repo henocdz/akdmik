@@ -1,0 +1,64 @@
+@import url(http://fonts.googleapis.com/css?family=Bree+Serif);
+@blueline: #32b0d7;
+
+body,html{
+	background: url('../img/login_bg.png') repeat;
+	font-family: 'Bree Serif', Helvetica, Arial;
+}
+
+.a_input(){
+	outline:0;
+}
+
+header{
+	display: block;
+	width: 100%;
+	img{
+		display: block;
+		width: 40%;
+		margin: 0 auto;
+		margin-top: 1em;
+
+
+		@media screen and (max-width: 460px){
+			width: 80%;
+		}
+	}
+}
+
+#formi{
+	border-radius: 10px;
+	display: block;
+	margin: 0 auto;
+	margin-top: 2em;
+	padding: 1em;
+	width: 30%;
+
+	@media screen and (max-width: 460px){
+		width: 80%;
+	}
+
+	form{
+		display: block;
+		width: 100%;
+
+		input{
+			font-family: inherit;
+			font-size: 1.1em;
+			.a_input;
+			display: block;
+			margin: 1.1em auto;
+			padding: 0.6em;
+			width: 95%;
+		}
+
+		input[type=submit]{
+			cursor: pointer;
+			border:0;
+			padding: 0.4em ;
+			background: @blueline;
+			color: #FFF;
+			width: 40%;
+		}
+	}
+}

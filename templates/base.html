@@ -1,0 +1,147 @@
+{% load url from future %}
+{% load staticfiles %}
+<!DOCTYPE html>
+<html>
+<head>
+	<title>AKDMIK</title>
+	<link rel="stylesheet" type="text/css" href="{% static 'util/bootstrap/css/bootstrap.css' %}">
+	<link rel="stylesheet" type="text/css" href="{% static 'util/ps/perfect-scrollbar.css' %}">
+	<link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
+</head>
+<body>
+	<section id="container">
+		<header>
+			<a href="#" id="hidenav"><i class="glyphicon glyphicon-align-justify"></i></a>
+			<a href="/" class="logo"><img src="{% static 'img/logo.png' %}" alt="AKDMIK" /></a>
+			<div id="notifications">
+
+				<div class="dropdown">
+					<button title="Seguidores" class="btn dropdown-toggle" type="button" id="followersNotifications" data-toggle="dropdown">
+						<span class="glyphicon glyphicon-user"></span>
+						<span class="nnumber orangebg">7</span>
+					</button>
+					<ul class="dropdown-menu" role="menu" aria-labelledby="followersNotifications">
+						<div class="notify-arrow notify-arrow-white"></div>
+					</ul>
+				</div>
+
+				<div class="dropdown">
+					<button title="Tareas" class="btn dropdown-toggle" type="button" id="taskNotifications" data-toggle="dropdown">
+						<span class="glyphicon glyphicon-tasks"></span>
+						<span class="nnumber bluebg">99+</span>
+					</button>
+					<ul class="dropdown-menu" role="menu" aria-labelledby="taskNotifications">
+						<div class="notify-arrow notify-arrow-white"></div>
+						<li role="presentation"><a role="menuitem" tabindex="-1" href="#">Action</a></li>
+					</ul>
+				</div>
+
+				<div class="dropdown">
+					<button title="Mensajes" class="btn dropdown-toggle" type="button" id="messageNotifications" data-toggle="dropdown">
+						<span class="glyphicon glyphicon-comment"></span>
+						<span class="nnumber greenbg">7</span>
+					</button>
+					<ul class="dropdown-menu" role="menu" aria-labelledby="messageNotifications">
+						<div class="notify-arrow notify-arrow-white"></div>
+					</ul>
+				</div>
+			</div>
+
+			<div id="usernav">
+				<a href="javascript:void(0)" type="button" id="followersNotifications" data-toggle="dropdown">
+					<img src="http://localhost/VStaff/assets/pictures/profile/blank_avatar.png" class="usernav-info" />
+					<span class="usernav-name">{{user.get_short_name}}</span>
+				</a>
+			</div>
+		</header>
+		<nav>
+			<div id="nav">
+				<ul>
+					<li class="active">
+						<a href="{% url 'home' %}"><i class="glyphicon glyphicon-home"></i>Inicio</a>
+					</li>
+					<li>
+						<a href="" class="expand"><i class="glyphicon glyphicon-pencil"></i>Alumnos</a>
+						<ul>
+							<li><a href="">Agregar</a></li>
+							<li><a href="">Editar</a></li>
+						</ul>
+					</li>
+					<li>
+						<a href="" class="expand"><i class="glyphicon glyphicon-flag"></i>Profesores</a>
+						<ul>
+							<li><a href="">Agregar</a></li>
+							<li><a href="">Editar</a></li>
+						</ul>
+					</li>
+					<li>
+						<a href="" class="expand"><i class="glyphicon glyphicon-book"></i>Materias</a>
+						<ul>
+							<li><a href="">Agregar</a></li>
+							<li><a href="">Editar</a></li>
+						</ul>
+					</li>
+					<li>
+						<a href="" class="expand"><i class="glyphicon glyphicon-cloud"></i>Grupos</a>
+						<ul>
+							<li><a href="">Agregar</a></li>
+							<li><a href="">Editar</a></li>
+						</ul>
+					</li>
+					
+					<li>
+						<a href="" class="expand"><i class="glyphicon glyphicon-send"></i>Clases</a>
+						<ul>
+							<li><a href="">Crear</a></li>
+							<li><a href="">Editar</a></li>
+						</ul>
+					</li>
+					<li>
+						<a href=""><i class="glyphicon glyphicon-bullhorn"></i>Boletines</a>
+					</li>
+					<li>
+						<a href="{% url 'logout' %}"><i class="glyphicon glyphicon-off"></i>Salir</a>
+					</li>
+					
+				</ul>
+			</div>
+		</nav>
+
+		<section id="main">
+			<div id="wrapperm" class="container">
+				<div class="row">
+					<div class="akbox col-md-6">
+						<div class="akhead">
+							<h5>T&iacute;tulo</h5>
+						</div>
+						<div class="akbody">
+							<strong>000</strong>
+						</div>
+					</div>
+					<div class="akbox col-md-5 col-md-offset-1">
+						<div class="akhead">
+							<h5>T&iacute;tulo</h5>
+						</div>
+						<div class="akbody">
+							<form class="blocks">
+								<label>Hola</label>
+								<input type="text">
+								<input type="submit">
+							</form>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<footer>
+				<span>Desarrollado por Revodi Labs &copy; - Made in M&eacute;xico <i class="glyphicon glyphicon-thumbs-up"></i></span>
+			</footer>
+		</section>
+
+	</section>
+
+	<script src="{% static 'util/jquery-1.10.2.min.js' %}"></script>
+	<script src="{% static 'util/bootstrap/js/bootstrap.min.js' %}"></script>
+	<script src="{% static 'js/base.min.js' %}"></script>
+</body>
+</html>

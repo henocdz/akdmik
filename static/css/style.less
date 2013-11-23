@@ -1,0 +1,336 @@
+@import url(http://fonts.googleapis.com/css?family=Open+Sans:300,400,600);
+@bluenav: #2a3542;
+@graybg: #f1f2f7;
+@white: #FFF;
+@topheight: 60px;
+@navwidth: 210px;
+@activeblue:#35404d;
+@graytext: #aeb2b7;
+@orange: #fba953;
+@gayblue: #5bd1f5;
+@gaygreen: #bbd861;
+@lred: #FF6C60;
+
+*{padding: 0; margin: 0;}
+
+
+
+body,html{
+
+	background: @graybg;
+	font-family: 'Open Sans', Helvetica, Arial;
+	width: 100%;
+	height: 100%;
+}
+
+.a_(){
+	text-decoration: none;
+	color: @graytext;
+}
+
+a{
+	.a_;
+
+	&:hover, &:focus, &:active{
+		.a_;
+	}
+}
+
+header{
+	background: @white;
+	display: block;
+	height: @topheight;
+	left: 0;
+	padding: 0 15px;
+	position: fixed;
+	right: 0;
+	top:0;
+	width: 100%;
+	z-index: 1000;
+	.btn{
+		background: @white;
+		&:active{
+			background: fade(@graytext, 20%);
+			box-shadow: none;
+		}
+	}
+
+	#hidenav{
+		color: #000;
+		font-size: 20px;
+		display: inline-block;
+		margin-right: 1em;
+		vertical-align: middle;
+	}
+
+	.logo{
+		display: inline-block;
+		height: 100%;
+		vertical-align: middle;
+		width: @navwidth;
+		img{
+			max-height: 50%;
+			margin-top: @topheight / 2 -  (@topheight / 4);
+			position: relative;
+		}
+	}
+
+	#notifications{
+		display: inline-block;
+		vertical-align: middle;
+		.dropdown{
+			display: inline-block;
+			vertical-align: middle;
+			
+			button{
+				color: @graytext;
+				font-size: 16px;
+				margin-right: 5px;
+			}
+
+			.nnumber{
+				border-radius: 40%;
+				color: @white;
+				font-size: 0.6em;
+				font-weight: bold;
+				height: 20px;
+				padding: 3px 6px;
+				position: absolute;
+				right: 0px;
+				text-align: center;
+				top:-5px;
+				z-index: 989;
+				min-width: 16px;
+			}
+		}
+	}
+}
+
+
+#usernav{
+	border-radius: 5px;
+	/*border: 1px solid @graytext;*/
+	float: right;
+	margin-top: 5px;
+	max-height: 50px;
+	img{
+		display: inline-block;
+		height: 30px;
+		width: 30px;
+	}
+
+	a{
+		display: block;
+		height: 100%;
+		padding: 8px 10px;
+		width: 100%;
+		color: #000;
+	}
+}
+
+nav{
+	#nav{
+		background: @bluenav;
+		height: 100%;
+		position: fixed;
+		width: @navwidth;
+		font-weight: 300;
+		font-size: 13px;
+		overflow: auto;
+		ul{
+			margin-top: @topheight ;
+			overflow-y: auto;
+			padding: 10px;
+			li{
+				display: block;
+				width: 96%;
+				margin: 5px auto;
+				border-radius: 5px;
+
+				&.active{
+					ul{
+						display:block;
+					}
+				}
+
+				&:hover, &.active{
+					background: @activeblue;
+					a{
+						i{
+							color: @lred;
+						}
+					}
+				}
+
+				ul{
+					display: none;
+					width: 90%;
+					margin: 0;
+					padding:0;
+					margin-left: 10%;
+					li{
+						display: block;
+
+						&:hover{
+							a{
+								color: @lred;
+							}
+						}
+
+						a{
+							padding: 0.3em;
+							display: block;
+							width: 100%;
+						}
+					}
+				}
+
+				a{
+					.a_;
+					display: block;
+					height: 100%;
+					padding:0.9em 0.8em;
+					width: 100%;
+
+					i{
+						margin-right: 10px;
+					}
+				}
+			} 
+		}
+	}
+}
+
+
+.notify-arrow {
+    border-style: solid;
+    border-width: 0 9px 9px;
+    height: 0;
+    margin-top: 0;
+    opacity: 0;
+    position: absolute;
+    left: 10px;
+    top: -19px;
+    transition: all 0.25s ease 0s;
+    width: 0;
+    z-index: 10;
+    margin-top: 10px;
+    opacity: 1;
+}
+
+.notify-arrow-white {
+    border-color: transparent transparent #ccc;
+    border-bottom-color: #ccc !important;
+    border-top-color: #ccc !important;
+}
+
+
+#container{
+	height: 100%;
+	width: 100%;
+	#main{
+		display: block;
+		margin-left: @navwidth;
+		#wrapperm{
+			display: inline-block;
+			margin-top: @topheight;
+			padding: 2em;
+			width: 100%;
+		}
+
+		footer{
+			display: block;
+			width: 100%;
+			padding: 1em 0;
+			border-top: 1px dashed @graytext;
+			text-align: center;
+		}
+	}
+}
+
+.orangebg{	background: @orange;	}
+.greenbg{	background: @gaygreen;	}
+.bluebg{	background: @gayblue;	}
+
+/****/
+
+.akbox{
+	background: @white;
+	border-radius: 5px;
+	padding: 0;
+	@akpad: 1em;
+	.akhead{
+
+		display: block;
+		border-bottom: 1px solid @graytext;
+		padding: @akpad; 
+	}
+
+	.akbody{
+		display: block;
+		padding: @akpad;
+
+		form{
+			display: block;
+			width: 95%;
+			margin: 0 auto;
+
+			&.blocks{
+				input,label{
+					display: block;
+					width: 98%;
+					border-radius: 5px;
+				}
+			}
+
+			&.inline{
+				input,label{
+					display: block;
+				}
+			}
+
+			input{
+				border: 1px solid @graybg;
+				padding: 5px 10px;
+				outline: 0;
+				margin-bottom: 10px;
+			}
+
+			label{
+				font-weight: bold;
+			}
+
+			input[type=text], input[type=password]{
+				
+				&:focus{
+					border: 1px solid @gayblue;
+				}
+			}
+
+		}
+	}
+}
+
+
+@media (max-width: 640px){
+	#usernav{
+		display: none;
+	}
+
+	nav > #nav{
+		width: 100%;
+	}
+
+	#container #main{
+		margin-left: 0;
+	}
+}
+
+@media (max-width: 420px){
+	header .logo{
+		display: none;
+	}
+	header #notifications{
+		margin-top: 15px;
+	}
+}
