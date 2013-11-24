@@ -15,6 +15,7 @@ Pasos
 
  1. pip install requirements.txt
  2. python manage.py syncdb
+ 	
  	2.1 python manage.py createsuperuser **En caso de que no se cree en la sincronización**
  3. python manage.py runserver
 
