@@ -1,7 +1,7 @@
 from django.contrib.auth.models import BaseUserManager
 
 class AUserManager(BaseUserManager):
-	def create_user(self, username, password=None):
+	def create_user(self, username, password='123456'):
 		if not username:
 			raise ValueError('Escoge un nombre de usuario')
 
@@ -13,6 +13,7 @@ class AUserManager(BaseUserManager):
 	def create_superuser(self, username,password):
 		user = self.create_user(username, password)
 		user.admin = True
+		user.staff = True
 		user.is_superuser = True
 		user.save(using = self._db)
 		return user

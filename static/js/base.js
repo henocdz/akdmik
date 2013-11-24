@@ -17,7 +17,7 @@ $(function(){
 		var parent = $(this).parent('li');
 		var child = parent.children('ul');
 		
-		if(child.hasClass('expanded') || parent.hasClass('active')){
+		if(child.hasClass('expanded') ){
 			child.removeClass('expanded').slideUp()
 			return;
 		}
@@ -28,5 +28,6 @@ $(function(){
 		child.slideDown().addClass('expanded');
 	})
 
-	$('#subnav').perfectScrollbar()
+	$('#id_fecha_nacimiento').datepicker({format: 'dd/mm/yyyy'});
+
 })

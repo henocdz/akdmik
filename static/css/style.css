@@ -21,6 +21,7 @@ nav #nav ul li a{text-decoration:none;color:#aeb2b7;display:block;height:100%;pa
 .orangebg{background:#fba953}
 .greenbg{background:#bbd861}
 .bluebg{background:#5bd1f5}
+.errorlist{background:rgba(255,108,96,0.7);width:95%;list-style:none;border-radius:5px;padding:2px;color:#fff;border:1px solid #ff6c60;margin-top:1em}
 .akbox{background:#fff;border-radius:5px;padding:0}.akbox .akhead{display:block;border-bottom:1px solid #aeb2b7;padding:1em}
 .akbox .akbody{display:block;padding:1em}.akbox .akbody form{display:block;width:95%;margin:0 auto}.akbox .akbody form.blocks input,.akbox .akbody form.blocks label{display:block;width:98%;border-radius:5px}
 .akbox .akbody form.inline input,.akbox .akbody form.inline label{display:block}

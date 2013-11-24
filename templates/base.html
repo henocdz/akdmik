@@ -5,7 +5,7 @@
 <head>
 	<title>AKDMIK</title>
 	<link rel="stylesheet" type="text/css" href="{% static 'util/bootstrap/css/bootstrap.css' %}">
-	<link rel="stylesheet" type="text/css" href="{% static 'util/ps/perfect-scrollbar.css' %}">
+	<link rel="stylesheet" type="text/css" href="{% static 'util/datepicker/css/datepicker.css' %}" >
 	<link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
 </head>
 <body>
@@ -57,31 +57,31 @@
 		<nav>
 			<div id="nav">
 				<ul>
-					<li class="active">
+					<li class="{% block home %}{% endblock%}">
 						<a href="{% url 'home' %}"><i class="glyphicon glyphicon-home"></i>Inicio</a>
 					</li>
-					<li>
-						<a href="" class="expand"><i class="glyphicon glyphicon-pencil"></i>Alumnos</a>
+					<li class="{% block alumnos %}{% endblock%}">
+						<a href="#" class="expand"><i class="glyphicon glyphicon-pencil"></i>Alumnos</a>
 						<ul>
-							<li><a href="">Agregar</a></li>
-							<li><a href="">Editar</a></li>
+							<li><a href="{% url 'alumnos' %}">Todos</a></li>
+							<li><a href="{% url 'alumnos-nuevo' %}">Agregar</a></li>
 						</ul>
 					</li>
-					<li>
+					<li class="{% block profesores %}{% endblock%}">
 						<a href="" class="expand"><i class="glyphicon glyphicon-flag"></i>Profesores</a>
 						<ul>
 							<li><a href="">Agregar</a></li>
 							<li><a href="">Editar</a></li>
 						</ul>
 					</li>
-					<li>
+					<li class="{% block materias %}{% endblock%}">
 						<a href="" class="expand"><i class="glyphicon glyphicon-book"></i>Materias</a>
 						<ul>
 							<li><a href="">Agregar</a></li>
 							<li><a href="">Editar</a></li>
 						</ul>
 					</li>
-					<li>
+					<li class="{% block grupos %}{% endblock%}">
 						<a href="" class="expand"><i class="glyphicon glyphicon-cloud"></i>Grupos</a>
 						<ul>
 							<li><a href="">Agregar</a></li>
@@ -89,14 +89,14 @@
 						</ul>
 					</li>
 					
-					<li>
+					<li class="{% block clases %}{% endblock%}">
 						<a href="" class="expand"><i class="glyphicon glyphicon-send"></i>Clases</a>
 						<ul>
 							<li><a href="">Crear</a></li>
 							<li><a href="">Editar</a></li>
 						</ul>
 					</li>
-					<li>
+					<li class="{% block boletines %}{% endblock%}">
 						<a href=""><i class="glyphicon glyphicon-bullhorn"></i>Boletines</a>
 					</li>
 					<li>
@@ -110,26 +110,7 @@
 		<section id="main">
 			<div id="wrapperm" class="container">
 				<div class="row">
-					<div class="akbox col-md-6">
-						<div class="akhead">
-							<h5>T&iacute;tulo</h5>
-						</div>
-						<div class="akbody">
-							<strong>000</strong>
-						</div>
-					</div>
-					<div class="akbox col-md-5 col-md-offset-1">
-						<div class="akhead">
-							<h5>T&iacute;tulo</h5>
-						</div>
-						<div class="akbody">
-							<form class="blocks">
-								<label>Hola</label>
-								<input type="text">
-								<input type="submit">
-							</form>
-						</div>
-					</div>
+					{% block content %}{% endblock%}
 				</div>
 			</div>
 
@@ -142,6 +123,7 @@
 
 	<script src="{% static 'util/jquery-1.10.2.min.js' %}"></script>
 	<script src="{% static 'util/bootstrap/js/bootstrap.min.js' %}"></script>
+	<script src="{% static 'util/datepicker/js/bootstrap-datepicker.js' %}"></script>
 	<script src="{% static 'js/base.min.js' %}"></script>
 </body>
 </html>

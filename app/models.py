@@ -1,15 +1,16 @@
+# -*- encoding: utf-8 -*-
 from django.db import models
 from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin, _user_has_module_perms
 from app.managers import AUserManager
 # Create your models here.
 class AUser(AbstractBaseUser,PermissionsMixin):
-	username = models.CharField(max_length=12, unique=True, db_index=True)
-	email = models.EmailField()
+	username = models.CharField(max_length=12, verbose_name='Boleta / ID', unique=True, db_index=True)
+	email = models.EmailField(null=True, blank = True, default = None, verbose_name = 'Correo Electrónico')
 	nombre  =  models.CharField(max_length=40)
-	ap_paterno = models.CharField(max_length=40)
-	ap_materno = models.CharField(max_length=40)
-	fecha_nacimiento = models.DateField(default="1990-01-01")
-	sexo = models.CharField(max_length=1,choices=(('M','M'),('F','F')))
+	ap_paterno = models.CharField(max_length=40, verbose_name='Apellido Paterno')
+	ap_materno = models.CharField(max_length=40, verbose_name='Apellido Materno')
+	fecha_nacimiento = models.DateField(default="1993-01-01")
+	sexo = models.CharField(max_length=1,choices=(('M','Masculino'),('F','Femenino')))
 	estado = models.SmallIntegerField(choices=((0,'Suspendido'),(1,'Regular'),(2,'Irregular')), default=1)
 	tipo = models.SmallIntegerField(choices = (
 			(0,'Administrador'),
@@ -17,8 +18,9 @@ class AUser(AbstractBaseUser,PermissionsMixin):
 			(2, 'Profesor'),
 			(3, 'Tutor'),
 		), default=1)
+	staff = models.BooleanField(default=False)
 	admin = models.BooleanField(default=False)
-	active = models.BooleanField(default=False)
+	active = models.BooleanField(default=True)
 	USERNAME_FIELD = "username"
 	objects = AUserManager()
 
@@ -35,6 +37,10 @@ class AUser(AbstractBaseUser,PermissionsMixin):
 	@property
 	def is_active(self):
 		return self.active
+	@property
+	def is_staff(self):
+		return self.staff
+
 	@property
 	def is_admin(self):
 		return self.admin

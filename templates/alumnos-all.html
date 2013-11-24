@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+{% block alumnos %}active{% endblock%}
+
+{% block content %}
+	<div class="akbox col-md-12">
+		<div class="akhead">
+			<strong>Alumnos</strong>
+		</div>
+		<div class="akbody">
+			{% if alumnos %}
+			<table class="table table-striped">
+				<tr>
+					<td>Boleta</td>
+					<td>Nombre</td>
+					<td>Estado</td>
+					<td>Editar</td>
+					<td>Eliminar</td>
+				</tr>
+
+				{% for alumno in alumnos %}
+					<tr>
+						<td>{{alumno.username}}</td>
+						<td>{{alumno.get_full_name}}</td>
+						<td>{{alumno.estado}}</td>
+						<td><a href="{% url 'alumnos-editar' alumno.id%}" class=""><i class="glyphicon glyphicon-pencil"></i></a></td>
+						<td><a href="{% url 'alumnos-eliminar' alumno.id%}" class=""><i class="glyphicon glyphicon-pencil"></i></a></td>
+					</tr>
+				{% endfor %}
+			</table>
+			{% else %}
+				<p class="alert alert-warning">No hay alumnos &gt;&gt; <a href="{% url 'alumnos-nuevo' %}">Agregar</a></p>
+			{% endif %}
+		</div>
+	</div>
+{% endblock%}

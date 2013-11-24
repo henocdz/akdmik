@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+{% block alumnos %}active{% endblock%}
+
+{% block content %}
+	<div class="akbox col-md-12">
+		<div class="akhead">
+			<strong>Nuevo Alumno</strong>
+		</div>
+		<div class="akbody">
+			<form class="blocks" method="POST" action="{% url 'alumnos-editar' id_e %}">
+				{% csrf_token %}
+				{{ form.as_p }}
+				<input type="submit" value="Actualizar" />
+			</form>
+		</div>
+	</div>
+{% endblock%}
