@@ -11,6 +11,8 @@ $(function(){
 			na.show();
 	})
 
+	$('select').selectric()
+
 	$('.expand').on('click', function(e){
 		e.preventDefault();
 

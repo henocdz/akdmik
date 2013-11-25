@@ -6,6 +6,7 @@
 	<title>AKDMIK</title>
 	<link rel="stylesheet" type="text/css" href="{% static 'util/bootstrap/css/bootstrap.css' %}">
 	<link rel="stylesheet" type="text/css" href="{% static 'util/datepicker/css/datepicker.css' %}" >
+	<link rel="stylesheet" type="text/css" href="{% static 'util/selectric/selectric.css' %}">
 	<link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
 </head>
 <body>
@@ -60,6 +61,8 @@
 					<li class="{% block home %}{% endblock%}">
 						<a href="{% url 'home' %}"><i class="glyphicon glyphicon-home"></i>Inicio</a>
 					</li>
+					<!-- ADMIN NAV -->
+					{% if user.is_admin %}
 					<li class="{% block alumnos %}{% endblock%}">
 						<a href="#" class="expand"><i class="glyphicon glyphicon-pencil"></i>Alumnos</a>
 						<ul>
@@ -99,6 +102,8 @@
 					<li class="{% block boletines %}{% endblock%}">
 						<a href=""><i class="glyphicon glyphicon-bullhorn"></i>Boletines</a>
 					</li>
+					{% endif %}
+					<!-- fin ADMIN NAV -->
 					<li>
 						<a href="{% url 'logout' %}"><i class="glyphicon glyphicon-off"></i>Salir</a>
 					</li>
@@ -124,6 +129,7 @@
 	<script src="{% static 'util/jquery-1.10.2.min.js' %}"></script>
 	<script src="{% static 'util/bootstrap/js/bootstrap.min.js' %}"></script>
 	<script src="{% static 'util/datepicker/js/bootstrap-datepicker.js' %}"></script>
+	<script src="{% static 'util/selectric/js/jquery.selectric.min.js' %}"></script>
 	<script src="{% static 'js/base.min.js' %}"></script>
 </body>
 </html>
