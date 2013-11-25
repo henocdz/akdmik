@@ -68,17 +68,17 @@
 						</ul>
 					</li>
 					<li class="{% block profesores %}{% endblock%}">
-						<a href="" class="expand"><i class="glyphicon glyphicon-flag"></i>Profesores</a>
+						<a href="#" class="expand"><i class="glyphicon glyphicon-flag"></i>Profesores</a>
 						<ul>
 							<li><a href="{% url 'profesores' %}">Todos</a></li>
 							<li><a href="{% url 'profesores-nuevo' %}">Agregar</a></li>
 						</ul>
 					</li>
 					<li class="{% block materias %}{% endblock%}">
-						<a href="" class="expand"><i class="glyphicon glyphicon-book"></i>Materias</a>
+						<a href="#" class="expand"><i class="glyphicon glyphicon-book"></i>Materias</a>
 						<ul>
-							<li><a href="">Agregar</a></li>
-							<li><a href="">Editar</a></li>
+							<li><a href="{% url 'materias' %}">Todas</a></li>
+							<li><a href="{% url 'materias-nuevo' %}">Agregar</a></li>
 						</ul>
 					</li>
 					<li class="{% block grupos %}{% endblock%}">

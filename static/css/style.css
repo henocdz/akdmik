@@ -9,7 +9,7 @@ header #notifications{display:inline-block;vertical-align:middle}header #notific
 header #notifications .dropdown .nnumber{border-radius:40%;color:#fff;font-size:.6em;font-weight:bold;height:20px;padding:3px 6px;position:absolute;right:0;text-align:center;top:-5px;z-index:989;min-width:16px}
 #usernav{border-radius:5px;float:right;margin-top:5px;max-height:50px}#usernav img{display:inline-block;height:30px;width:30px}
 #usernav a{display:block;height:100%;padding:8px 10px;width:100%;color:#000}
-nav #nav{background:#2a3542;height:100%;position:fixed;width:210px;font-weight:300;font-size:13px;overflow:auto}nav #nav ul{margin-top:60px;overflow-y:auto;padding:10px}nav #nav ul li{display:block;width:96%;margin:5px auto;border-radius:5px}nav #nav ul li.active ul{display:block}
+nav #nav{background:#2a3542;height:100%;position:fixed;width:210px;font-weight:300;font-size:13px;overflow:auto;z-index:990}nav #nav ul{margin-top:60px;overflow-y:auto;padding:10px}nav #nav ul li{display:block;width:96%;margin:5px auto;border-radius:5px}nav #nav ul li.active ul{display:block}
 nav #nav ul li:hover,nav #nav ul li.active{background:#35404d}nav #nav ul li:hover a i,nav #nav ul li.active a i{color:#ff6c60}
 nav #nav ul li ul{display:none;width:90%;margin:0;padding:0;margin-left:10%}nav #nav ul li ul li{display:block}nav #nav ul li ul li:hover a{color:#ff6c60}
 nav #nav ul li ul li a{padding:.3em;display:block;width:100%}
@@ -28,4 +28,4 @@ nav #nav ul li a{text-decoration:none;color:#aeb2b7;display:block;height:100%;pa
 .akbox .akbody form input{border:1px solid #f1f2f7;padding:5px 10px;outline:0;margin-bottom:10px}
 .akbox .akbody form label{font-weight:bold}
 .akbox .akbody form input[type=text]:focus,.akbox .akbody form input[type=password]:focus{border:1px solid #5bd1f5}
-@media (max-width:640px){#usernav{display:none} nav>#nav{width:100%} #container #main{margin-left:0}}@media (max-width:420px){header .logo{display:none} header #notifications{margin-top:15px}}
+@media (max-width:640px){#usernav{display:none} nav>#nav{width:100%;height:auto;position:absolute} #container #main{margin-left:0}}@media (max-width:420px){header .logo{display:none} header #notifications{margin-top:15px}}

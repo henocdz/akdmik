@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+{% block materias %}active{% endblock%}
+
+{% block content %}
+	<div class="akbox col-md-12">
+		<div class="akhead">
+			<strong>Materias</strong>
+		</div>
+		<div class="akbody">
+			{% if materias %}
+			<table class="table table-striped">
+				<tr>
+					<td>CLAVE</td>
+					<td>Nombre</td>
+					<td>Editar</td>
+				</tr>
+
+				{% for materia in materias %}
+					<tr>
+						<td>{{materia.keyname}}</td>
+						<td>{{materia.nombre}}</td>
+						<td><a href="{% url 'materias-editar' materia.id%}" class=""><i class="glyphicon glyphicon-pencil"></i></a></td>
+					</tr>
+				{% endfor %}
+			</table>
+			{% else %}
+				<p class="alert alert-warning">No hay materias &gt;&gt; <a href="{% url 'materias-nuevo' %}">Agregar</a></p>
+			{% endif %}
+		</div>
+	</div>
+{% endblock%}

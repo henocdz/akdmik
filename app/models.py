@@ -49,24 +49,24 @@ class AUser(AbstractBaseUser,PermissionsMixin):
 		return self.username
 
 class Materia(models.Model):
-	keyname = models.CharField(max_length=10)
-	nombre = models.CharField(max_length=100)
+	keyname = models.CharField(max_length=10, verbose_name="Clave de Materia", unique=True)
+	nombre = models.CharField(max_length=100, verbose_name="Nombre", unique=True)
 
 	def __unicode__(self):
 		return self.nombre
 
 class Grupo(models.Model):
-	nombre = models.CharField(max_length=5)
-	salon = models.CharField(max_length=4)
-	capacidad = models.IntegerField()
+	nombre = models.CharField(max_length=5, verbose_name="Nombre", unique=True)
+	salon = models.CharField(max_length=4, verbose_name="No. Salón", unique=True)
+	capacidad = models.IntegerField(verbose_name="Capacidad máxima")
 
 	def __unicode__(self):
 		return self.nombre
 
 class Clase(models.Model):
-	materia = models.ForeignKey(Materia)
-	grupo = models.ForeignKey(Grupo)
-	profesor = models.ForeignKey(AUser)
+	materia = models.ForeignKey(Materia, verbose_name="Materia")
+	grupo = models.ForeignKey(Grupo, verbose_name="Grupo")
+	profesor = models.ForeignKey(AUser, verbose_name="Profesor")
 
 	def __unicode__(self):
 		return self.materia.nombre + ' .. ' + self.grupo.nombre

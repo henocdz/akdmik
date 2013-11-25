@@ -20,5 +20,17 @@ urlpatterns = patterns('',
     url(r'^profesores/editar/(?P<id>[0-9]{1,12})/$', ProfesorEditarView.as_view(), name='profesores-editar'),
     url(r'^profesores/eliminar/(?P<id>[0-9]{1,12})/$', profesorEliminar, name='profesores-eliminar'),
 
+    url(r'^materias/$', materias, name='materias'),
+    url(r'^materias/nuevo/$', MateriaNuevoView.as_view(), name='materias-nuevo'),
+    url(r'^materias/editar/(?P<id>[0-9]{1,12})/$', MateriaEditarView.as_view(), name='materias-editar'),
+
+    #url(r'^grupos/$', grupos, name='grupos'),
+    #url(r'^grupos/nuevo/$', GrupoNuevoView, name='grupos-nuevo'),
+    #url(r'^grupos/editar/(?P<id>[0-9]{1,12})/$', GrupoEditarView, name='grupos-editar'),
+
+    #url(r'^clases/$', grupos, name='clases'),
+    #url(r'^clases/nuevo/$', ClaseNuevoView.as_view(), name='clases-nuevo'),
+    #url(r'^clases/editar/(?P<id>[0-9]{1,12})/$', ClaseEditarView.as_view(), name='clases-editar'),	
+
     url(r'^logout/$', logoout, name='logout'),
 )

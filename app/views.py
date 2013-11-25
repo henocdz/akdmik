@@ -182,6 +182,79 @@ class ProfesorEditarView(View):
 
 		return render_to_response(self.template_name,{'user': request.user,'id_e':id, 'form': AForm }, RequestContext(request))
 
+#------------------------
+
+class MateriaNuevoView(View):
+	template_name = 'materias.html'
+
+	@method_decorator(login_required)
+	@method_decorator(admin_required)
+	def get(self,request):
+		MForm = MateriaForm()
+		return render_to_response(self.template_name, {
+				'user': request.user,
+				'id_e': 0,
+				'to_do': False,
+				'form': MForm
+			}, RequestContext(request))
+
+	@method_decorator(login_required)
+	@method_decorator(admin_required)
+	def post(self, request):
+		MForm = MateriaForm(request.POST)
+
+		if MForm.is_valid():
+			MForm.save()
+			return redirect(reverse('materias'))
+
+		return render_to_response(self.template_name,{
+				'user': request.user,
+				'id_e': 0,
+				'to_do': False,
+				'form': MForm
+			})
+
+def materias(request):
+	mats = AMod.Materia.objects.all()
+	return render_to_response('materias-all.html',{'materias': mats},RequestContext(request))
+
+class MateriaEditarView(View):
+	template_name = 'materias.html'
+	@method_decorator(login_required)
+	@method_decorator(admin_required)
+	def get(self,request,id):
+		try:
+			i = AMod.Materia.objects.get(pk=id)
+		except:
+			return redirect(reverse('materias'))
+		MForm = MateriaForm(instance=i)
+
+		return render_to_response(self.template_name, {
+				'user': request.user,
+				'id_e': id,
+				'to_do': True,
+				'form': MForm
+			}, RequestContext(request))
+
+	@method_decorator(login_required)
+	@method_decorator(admin_required)
+	def post(self, request,id):
+		try:
+			i = AMod.Materia.objects.get(pk=id)
+		except:
+			return redirect(reverse('materias'))
+		MForm = MateriaForm(request.POST, instance=i)
+
+		if MForm.is_valid():
+			MForm.save()
+			return redirect(reverse('materias'))
+
+		return render_to_response(self.template_name,{
+				'user': request.user,
+				'id_e': id,
+				'to_do': True,
+				'form': MForm
+			})
 
 class LoginView(View):
 	template_name = 'login.html'
