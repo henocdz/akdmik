@@ -5,20 +5,22 @@
 	<div class="akbox col-md-12">
 		<div class="akhead">
 			<strong>Grupos</strong>
-		</div>
+		</div> 
 		<div class="akbody">
 			{% if clases %}
 			<table class="table table-striped">
 				<tr>
-					<td>CLAVE</td>
-					<td>Nombre</td>
+					<td>Materia</td>
+					<td>Grupo</td>
+					<td>Profesor</td>
 					<td>Editar</td>
 				</tr>
 
 				{% for clase in clases %}
 					<tr>
-						<td>{{clase.keyname}}</td>
-						<td>{{clase.nombre}}</td>
+						<td>{{clase.materia.nombre}}</td>
+						<td>{{clase.grupo.nombre}}</td>
+						<td>{{clase.profesor.get_full_name}}</td>
 						<td><a href="{% url 'clases-editar' clase.id%}" class=""><i class="glyphicon glyphicon-pencil"></i></a></td>
 					</tr>
 				{% endfor %}

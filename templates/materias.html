@@ -4,7 +4,7 @@
 {% block content %}
 	<div class="akbox col-md-12">
 		<div class="akhead">
-			<strong>Nuevo Alumno</strong>
+			<strong>Nueva materia</strong>
 		</div>
 		<div class="akbody">
 			{% if to_do%}
@@ -12,6 +12,7 @@
 			{% else %}
 			<form class="blocks" method="POST" action="{% url 'materias-nuevo' %}">
 			{% endif %}
+			
 				{% csrf_token %}
 				{{ form.as_p }}
 				

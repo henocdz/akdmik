@@ -12,9 +12,9 @@
 			{% else %}
 			<form class="blocks" method="POST" action="{% url 'clases-nuevo' %}">
 			{% endif %}
-				{% csrf_token %}
 				{{ form.as_p }}
 				
+				{% csrf_token %}
 				{% if to_do%}
 				<input type="submit" value="Editar" />
 				{% else %}

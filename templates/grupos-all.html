@@ -10,15 +10,17 @@
 			{% if grupos %}
 			<table class="table table-striped">
 				<tr>
-					<td>CLAVE</td>
 					<td>Nombre</td>
+					<td>Sal&oacute;n</td>
+					<td>Capacidad</td>
 					<td>Editar</td>
 				</tr>
 
 				{% for grupo in grupos %}
 					<tr>
-						<td>{{grupo.keyname}}</td>
 						<td>{{grupo.nombre}}</td>
+						<td>{{grupo.salon}}</td>
+						<td>{{grupo.capacidad}}</td>
 						<td><a href="{% url 'grupos-editar' grupo.id%}" class=""><i class="glyphicon glyphicon-pencil"></i></a></td>
 					</tr>
 				{% endfor %}

@@ -46,7 +46,7 @@ class AUser(AbstractBaseUser,PermissionsMixin):
 		return self.admin
 
 	def __unicode__(self):
-		return self.username
+		return self.username +  ' - ' +  self.get_full_name()
 
 class Materia(models.Model):
 	keyname = models.CharField(max_length=10, verbose_name="Clave de Materia", unique=True)
@@ -67,6 +67,9 @@ class Clase(models.Model):
 	materia = models.ForeignKey(Materia, verbose_name="Materia")
 	grupo = models.ForeignKey(Grupo, verbose_name="Grupo")
 	profesor = models.ForeignKey(AUser, verbose_name="Profesor")
+
+	class Meta:
+		unique_together = ('materia', 'grupo', 'profesor')
 
 	def __unicode__(self):
 		return self.materia.nombre + ' .. ' + self.grupo.nombre

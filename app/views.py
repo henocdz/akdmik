@@ -215,7 +215,7 @@ class MateriaNuevoView(View):
 				'id_e': 0,
 				'to_do': False,
 				'form': MForm
-			})
+			}, RequestContext(request))
 
 class MateriaEditarView(View):
 	template_name = 'materias.html'
@@ -253,7 +253,7 @@ class MateriaEditarView(View):
 				'id_e': id,
 				'to_do': True,
 				'form': MForm
-			})
+			}, RequestContext(request))
 
 #---------------------------------------
 
@@ -289,7 +289,7 @@ class GrupoNuevoView(View):
 				'id_e': 0,
 				'to_do': False,
 				'form': GForm
-			})
+			}, RequestContext(request))
 
 class GrupoEditarView(View):
 	template_name = 'grupos.html'
@@ -327,7 +327,7 @@ class GrupoEditarView(View):
 				'id_e': id,
 				'to_do': True,
 				'form': GForm
-			})
+			}, RequestContext(request))
 #---------------------------------------
 
 def clases(request):
@@ -362,7 +362,7 @@ class ClaseNuevoView(View):
 				'id_e': 0,
 				'to_do': False,
 				'form': CForm
-			})
+			}, RequestContext(request))
 
 class ClaseEditarView(View):
 	template_name = 'clases.html'
@@ -400,7 +400,7 @@ class ClaseEditarView(View):
 				'id_e': id,
 				'to_do': True,
 				'form': CForm
-			})
+			}, RequestContext(request))
 
 #------------------------------------------
 
