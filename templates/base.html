@@ -84,16 +84,16 @@
 					<li class="{% block grupos %}{% endblock%}">
 						<a href="" class="expand"><i class="glyphicon glyphicon-cloud"></i>Grupos</a>
 						<ul>
-							<li><a href="">Agregar</a></li>
-							<li><a href="">Editar</a></li>
+							<li><a href="{% url 'grupos' %}">Todas</a></li>
+							<li><a href="{% url 'grupos-nuevo' %}">Agregar</a></li>
 						</ul>
 					</li>
 					
 					<li class="{% block clases %}{% endblock%}">
 						<a href="" class="expand"><i class="glyphicon glyphicon-send"></i>Clases</a>
 						<ul>
-							<li><a href="">Crear</a></li>
-							<li><a href="">Editar</a></li>
+							<li><a href="{% url 'clases' %}">Todas</a></li>
+							<li><a href="{% url 'clases-nuevo' %}">Agregar</a></li>
 						</ul>
 					</li>
 					<li class="{% block boletines %}{% endblock%}">

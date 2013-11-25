@@ -9,11 +9,11 @@ class AlumnoForm(forms.ModelForm):
 class MateriaForm(forms.ModelForm):
 	class Meta:
 		model = Materia
-		
+
 class GrupoForm(forms.ModelForm):
 	class Meta:
 		model = Grupo
 
-class GrupoForm(forms.ModelForm):
+class ClaseForm(forms.ModelForm):
 	class Meta:
 		model = Clase

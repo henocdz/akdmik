@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+{% block clases %}active{% endblock%}
+
+{% block content %}
+	<div class="akbox col-md-12">
+		<div class="akhead">
+			<strong>Grupos</strong>
+		</div>
+		<div class="akbody">
+			{% if clases %}
+			<table class="table table-striped">
+				<tr>
+					<td>CLAVE</td>
+					<td>Nombre</td>
+					<td>Editar</td>
+				</tr>
+
+				{% for clase in clases %}
+					<tr>
+						<td>{{clase.keyname}}</td>
+						<td>{{clase.nombre}}</td>
+						<td><a href="{% url 'clases-editar' clase.id%}" class=""><i class="glyphicon glyphicon-pencil"></i></a></td>
+					</tr>
+				{% endfor %}
+			</table>
+			{% else %}
+				<p class="alert alert-warning">No hay clases &gt;&gt; <a href="{% url 'clases-nuevo' %}">Agregar</a></p>
+			{% endif %}
+		</div>
+	</div>
+{% endblock%}

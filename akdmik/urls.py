@@ -24,13 +24,13 @@ urlpatterns = patterns('',
     url(r'^materias/nuevo/$', MateriaNuevoView.as_view(), name='materias-nuevo'),
     url(r'^materias/editar/(?P<id>[0-9]{1,12})/$', MateriaEditarView.as_view(), name='materias-editar'),
 
-    #url(r'^grupos/$', grupos, name='grupos'),
-    #url(r'^grupos/nuevo/$', GrupoNuevoView, name='grupos-nuevo'),
-    #url(r'^grupos/editar/(?P<id>[0-9]{1,12})/$', GrupoEditarView, name='grupos-editar'),
+    url(r'^grupos/$', grupos, name='grupos'),
+    url(r'^grupos/nuevo/$', GrupoNuevoView.as_view(), name='grupos-nuevo'),
+    url(r'^grupos/editar/(?P<id>[0-9]{1,12})/$', GrupoEditarView.as_view(), name='grupos-editar'),
 
-    #url(r'^clases/$', grupos, name='clases'),
-    #url(r'^clases/nuevo/$', ClaseNuevoView.as_view(), name='clases-nuevo'),
-    #url(r'^clases/editar/(?P<id>[0-9]{1,12})/$', ClaseEditarView.as_view(), name='clases-editar'),	
+    url(r'^clases/$', clases, name='clases'),
+    url(r'^clases/nuevo/$', ClaseNuevoView.as_view(), name='clases-nuevo'),
+    url(r'^clases/editar/(?P<id>[0-9]{1,12})/$', ClaseEditarView.as_view(), name='clases-editar'),	
 
     url(r'^logout/$', logoout, name='logout'),
 )

@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+{% block grupos %}active{% endblock%}
+
+{% block content %}
+	<div class="akbox col-md-12">
+		<div class="akhead">
+			<strong>Grupos</strong>
+		</div>
+		<div class="akbody">
+			{% if grupos %}
+			<table class="table table-striped">
+				<tr>
+					<td>CLAVE</td>
+					<td>Nombre</td>
+					<td>Editar</td>
+				</tr>
+
+				{% for grupo in grupos %}
+					<tr>
+						<td>{{grupo.keyname}}</td>
+						<td>{{grupo.nombre}}</td>
+						<td><a href="{% url 'grupos-editar' grupo.id%}" class=""><i class="glyphicon glyphicon-pencil"></i></a></td>
+					</tr>
+				{% endfor %}
+			</table>
+			{% else %}
+				<p class="alert alert-warning">No hay grupos &gt;&gt; <a href="{% url 'grupos-nuevo' %}">Agregar</a></p>
+			{% endif %}
+		</div>
+	</div>
+{% endblock%}

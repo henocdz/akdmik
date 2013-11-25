@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+{% block grupos %}active{% endblock%}
+
+{% block content %}
+	<div class="akbox col-md-12">
+		<div class="akhead">
+			<strong>Nuevo Grupo</strong>
+		</div>
+		<div class="akbody">
+			{% if to_do%}
+			<form class="blocks" method="POST" action="{% url 'grupos-editar' id_e %}">
+			{% else %}
+			<form class="blocks" method="POST" action="{% url 'grupos-nuevo' %}">
+			{% endif %}
+				{% csrf_token %}
+				{{ form.as_p }}
+				
+				{% if to_do%}
+				<input type="submit" value="Editar" />
+				{% else %}
+				<input type="submit" value="Agregar" />
+				{% endif %}
+		</div>
+	</div>
+{% endblock%}

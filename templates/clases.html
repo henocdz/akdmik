@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+{% block clases %}active{% endblock%}
+
+{% block content %}
+	<div class="akbox col-md-12">
+		<div class="akhead">
+			<strong>Nueva Clase</strong>
+		</div>
+		<div class="akbody">
+			{% if to_do%}
+			<form class="blocks" method="POST" action="{% url 'clases-editar' id_e %}">
+			{% else %}
+			<form class="blocks" method="POST" action="{% url 'clases-nuevo' %}">
+			{% endif %}
+				{% csrf_token %}
+				{{ form.as_p }}
+				
+				{% if to_do%}
+				<input type="submit" value="Editar" />
+				{% else %}
+				<input type="submit" value="Agregar" />
+				{% endif %}
+		</div>
+	</div>
+{% endblock%}

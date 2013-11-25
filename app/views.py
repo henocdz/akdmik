@@ -183,6 +183,9 @@ class ProfesorEditarView(View):
 		return render_to_response(self.template_name,{'user': request.user,'id_e':id, 'form': AForm }, RequestContext(request))
 
 #------------------------
+def materias(request):
+	mats = AMod.Materia.objects.all()
+	return render_to_response('materias-all.html',{'materias': mats},RequestContext(request))
 
 class MateriaNuevoView(View):
 	template_name = 'materias.html'
@@ -213,10 +216,6 @@ class MateriaNuevoView(View):
 				'to_do': False,
 				'form': MForm
 			})
-
-def materias(request):
-	mats = AMod.Materia.objects.all()
-	return render_to_response('materias-all.html',{'materias': mats},RequestContext(request))
 
 class MateriaEditarView(View):
 	template_name = 'materias.html'
@@ -255,6 +254,155 @@ class MateriaEditarView(View):
 				'to_do': True,
 				'form': MForm
 			})
+
+#---------------------------------------
+
+def grupos(request):
+	gpos = AMod.Grupo.objects.all()
+	return render_to_response('grupos-all.html',{'grupos': gpos},RequestContext(request))
+
+class GrupoNuevoView(View):
+	template_name = 'grupos.html'
+
+	@method_decorator(login_required)
+	@method_decorator(admin_required)
+	def get(self,request):
+		GForm = GrupoForm()
+		return render_to_response(self.template_name, {
+				'user': request.user,
+				'id_e': 0,
+				'to_do': False,
+				'form': GForm
+			}, RequestContext(request))
+
+	@method_decorator(login_required)
+	@method_decorator(admin_required)
+	def post(self, request):
+		GForm = GrupoForm(request.POST)
+
+		if GForm.is_valid():
+			GForm.save()
+			return redirect(reverse('grupos'))
+
+		return render_to_response(self.template_name,{
+				'user': request.user,
+				'id_e': 0,
+				'to_do': False,
+				'form': GForm
+			})
+
+class GrupoEditarView(View):
+	template_name = 'grupos.html'
+	@method_decorator(login_required)
+	@method_decorator(admin_required)
+	def get(self,request,id):
+		try:
+			i = AMod.Grupo.objects.get(pk=id)
+		except:
+			return redirect(reverse('grupos'))
+		GForm = GrupoForm(instance=i)
+
+		return render_to_response(self.template_name, {
+				'user': request.user,
+				'id_e': id,
+				'to_do': True,
+				'form': GForm
+			}, RequestContext(request))
+
+	@method_decorator(login_required)
+	@method_decorator(admin_required)
+	def post(self, request,id):
+		try:
+			i = AMod.Grupo.objects.get(pk=id)
+		except:
+			return redirect(reverse('grupos'))
+		GForm = GrupoForm(request.POST, instance=i)
+
+		if GForm.is_valid():
+			GForm.save()
+			return redirect(reverse('grupos'))
+
+		return render_to_response(self.template_name,{
+				'user': request.user,
+				'id_e': id,
+				'to_do': True,
+				'form': GForm
+			})
+#---------------------------------------
+
+def clases(request):
+	clases = AMod.Clase.objects.all()
+	return render_to_response('clases-all.html',{'clases': clases},RequestContext(request))
+
+class ClaseNuevoView(View):
+	template_name = 'clases.html'
+
+	@method_decorator(login_required)
+	@method_decorator(admin_required)
+	def get(self,request):
+		CForm = ClaseForm()
+		return render_to_response(self.template_name, {
+				'user': request.user,
+				'id_e': 0,
+				'to_do': False,
+				'form': CForm
+			}, RequestContext(request))
+
+	@method_decorator(login_required)
+	@method_decorator(admin_required)
+	def post(self, request):
+		CForm = ClaseForm(request.POST)
+
+		if CForm.is_valid():
+			CForm.save()
+			return redirect(reverse('clases'))
+
+		return render_to_response(self.template_name,{
+				'user': request.user,
+				'id_e': 0,
+				'to_do': False,
+				'form': CForm
+			})
+
+class ClaseEditarView(View):
+	template_name = 'clases.html'
+	@method_decorator(login_required)
+	@method_decorator(admin_required)
+	def get(self,request,id):
+		try:
+			i = AMod.Clase.objects.get(pk=id)
+		except:
+			return redirect(reverse('clases'))
+		CForm = ClaseForm(instance=i)
+
+		return render_to_response(self.template_name, {
+				'user': request.user,
+				'id_e': id,
+				'to_do': True,
+				'form': CForm
+			}, RequestContext(request))
+
+	@method_decorator(login_required)
+	@method_decorator(admin_required)
+	def post(self, request,id):
+		try:
+			i = AMod.Clase.objects.get(pk=id)
+		except:
+			return redirect(reverse('clases'))
+		CForm = ClaseForm(request.POST, instance=i)
+
+		if CForm.is_valid():
+			CForm.save()
+			return redirect(reverse('clases'))
+
+		return render_to_response(self.template_name,{
+				'user': request.user,
+				'id_e': id,
+				'to_do': True,
+				'form': CForm
+			})
+
+#------------------------------------------
 
 class LoginView(View):
 	template_name = 'login.html'
