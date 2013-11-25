@@ -12,6 +12,7 @@ from app import models as AMod
 import unicodedata
 @login_required
 def home(request):
+	print request.user.admin
 	return render_to_response('index.html',{'user': request.user }, RequestContext(request))
 
 @login_required

@@ -14,6 +14,8 @@
 		<header>
 			<a href="#" id="hidenav"><i class="glyphicon glyphicon-align-justify"></i></a>
 			<a href="/" class="logo"><img src="{% static 'img/logo.png' %}" alt="AKDMIK" /></a>
+			{% if not user.is_admin %}
+			<!-- NOTIFICACIONES -->
 			<div id="notifications">
 
 				<div class="dropdown">
@@ -47,7 +49,8 @@
 					</ul>
 				</div>
 			</div>
-
+			<!-- fin NOTIFICACIONES-->
+			{% endif %}
 			<div id="usernav">
 				<a href="javascript:void(0)" type="button" id="followersNotifications" data-toggle="dropdown">
 					<img src="http://localhost/VStaff/assets/pictures/profile/blank_avatar.png" class="usernav-info" />
