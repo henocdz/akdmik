@@ -13,5 +13,12 @@ urlpatterns = patterns('',
     url(r'^alumnos/nuevo/$', AlumnoNuevoView.as_view(), name='alumnos-nuevo'),
     url(r'^alumnos/editar/(?P<id>[0-9]{1,12})/$', AlumnoEditarView.as_view(), name='alumnos-editar'),
     url(r'^alumnos/eliminar/(?P<id>[0-9]{1,12})/$', alumnosEliminar, name='alumnos-eliminar'),
+
+
+    url(r'^profesores/$', profesores, name='profesores'),
+    url(r'^profesores/nuevo/$', ProfesorNuevoView.as_view(), name='profesores-nuevo'),
+    url(r'^profesores/editar/(?P<id>[0-9]{1,12})/$', ProfesorEditarView.as_view(), name='profesores-editar'),
+    url(r'^profesores/eliminar/(?P<id>[0-9]{1,12})/$', profesorEliminar, name='profesores-eliminar'),
+
     url(r'^logout/$', logoout, name='logout'),
 )

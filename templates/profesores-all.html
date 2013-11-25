@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+{% block profesores %}active{% endblock%}
+
+{% block content %}
+	<div class="akbox col-md-12">
+		<div class="akhead">
+			<strong>Profesores</strong>
+		</div>
+		<div class="akbody">
+			{% if profesores %}
+			<table class="table table-striped">
+				<tr>
+					<td>ID</td>
+					<td>Nombre</td>
+					<td>Editar</td>
+					<td>Eliminar</td>
+				</tr>
+
+				{% for profe in profesores %}
+					<tr>
+						<td>{{profe.username}}</td>
+						<td>{{profe.get_full_name}}</td>
+						<td><a href="{% url 'profesores-editar' profe.id%}" class=""><i class="glyphicon glyphicon-pencil"></i></a></td>
+						<td><a href="{% url 'profesores-eliminar' profe.id%}" class=""><i class="glyphicon glyphicon-pencil"></i></a></td>
+					</tr>
+				{% endfor %}
+			</table>
+			{% else %}
+				<p class="alert alert-warning">No hay profesores &gt;&gt; <a href="{% url 'profesores-nuevo' %}">Agregar</a></p>
+			{% endif %}
+		</div>
+	</div>
+{% endblock%}

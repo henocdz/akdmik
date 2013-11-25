@@ -99,6 +99,90 @@ class AlumnoEditarView(View):
 		return render_to_response(self.template_name,{'user': request.user,'id_e':id, 'form': AForm }, RequestContext(request))
 
 
+
+#-------------------------
+
+@login_required
+@admin_required
+def profesores(request):
+	alls = AMod.AUser.objects.all().filter(tipo = 2, active=True).order_by('nombre')
+	return render_to_response('profesores-all.html', {'user': request.user, 'profesores': alls}, RequestContext(request))
+
+@login_required
+@admin_required
+def profesorEliminar(request, id):
+	try:
+		alumni = AMod.AUser.objects.get(pk=id)
+	except:
+		return redirect(reverse('profesores'))
+
+	if not alumni.is_admin:
+		alumni.active = False
+		alumni.save()
+
+	return redirect(reverse('profesores'))
+
+class ProfesorNuevoView(View):
+	template_name = 'profesores.html'
+
+	@method_decorator(login_required)
+	@method_decorator(admin_required)
+	def get(self,request):
+		AForm = AlumnoForm()
+		return render_to_response(self.template_name,{'user': request.user, 'form': AForm }, RequestContext(request))
+
+	@method_decorator(login_required)
+	@method_decorator(admin_required)
+	def post(self,request):
+		AForm = AlumnoForm(request.POST)
+
+		if AForm.is_valid():
+			AForm.save()
+
+			user = AMod.AUser.objects.get(username=request.POST['username'])
+			password = (user.ap_paterno[0:2] + user.ap_materno[0:1] + user.nombre[0:1] + user.fecha_nacimiento.strftime("%y%m%d"))
+			password = password.lower()
+			password = ''.join((c for c in unicodedata.normalize('NFD', password) if unicodedata.category(c) != 'Mn'))
+			password = password.upper()
+			user.tipo = 2
+			user.set_password(str(password))
+			user.save()
+
+			return redirect(reverse('profesores'))
+		return render_to_response(self.template_name,{'user': request.user, 'form': AForm }, RequestContext(request))
+
+class ProfesorEditarView(View):
+	template_name = 'profesores-editar.html'
+
+	@method_decorator(login_required)
+	@method_decorator(admin_required)
+	def get(self,request,id):
+		try:
+			i = AUser.objects.get(pk=id)
+		except:
+			return redirect(reverse('home'))
+
+		AForm = AlumnoForm(instance=i)
+		return render_to_response(self.template_name,{'user': request.user,'id_e':id, 'form': AForm }, RequestContext(request))
+
+	@method_decorator(login_required)
+	@method_decorator(admin_required)
+	def post(self,request,id):
+
+		try:
+			i = AUser.objects.get(pk=id)
+		except:
+			return redirect(reverse('home'))
+
+		AForm = AlumnoForm(request.POST, instance=i)
+
+		if AForm.is_valid():
+			AForm.save()
+			return redirect(reverse('profesores'))
+
+		return render_to_response(self.template_name,{'user': request.user,'id_e':id, 'form': AForm }, RequestContext(request))
+
+
 class LoginView(View):
 	template_name = 'login.html'
 	def get(self,request):
