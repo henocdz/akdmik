@@ -4,8 +4,10 @@
 <html>
 <head>
 	<title>AKDMIK</title>
+	<link rel="stylesheet" type="text/css" href="{% static 'util/font-awesome/css/font-awesome.min.css' %}" >
 	<link rel="stylesheet" type="text/css" href="{% static 'util/bootstrap/css/bootstrap.css' %}">
 	<link rel="stylesheet" type="text/css" href="{% static 'util/datepicker/css/datepicker.css' %}" >
+	<link rel="stylesheet" type="text/css" href="{% static 'util/timepicker/css/bootstrap-timepicker.css' %}" >
 	<link rel="stylesheet" type="text/css" href="{% static 'util/selectric/selectric.css' %}">
 	<link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
 </head>
@@ -64,6 +66,30 @@
 					<li class="{% block home %}{% endblock%}">
 						<a href="{% url 'home' %}"><i class="glyphicon glyphicon-home"></i>Inicio</a>
 					</li>
+
+					{% if user.tipo == 2 or user.tipo == 1%}
+					<li class="{% block perfil %}{% endblock%}">
+						<a href="{% url 'perfil' user.username%}"><i class="glyphicon glyphicon-user"></i>Perfil</a>
+					</li>
+					<li class="{% block profesor-grupos %}{% endblock%}">
+						<a href="#" class="expand"><i class="glyphicon glyphicon-send"></i>Clases</a>
+						<ul>
+							{% for grupo in grupos %}
+							<li><a href="{% url 'grupo' grupo.link_name %}">{{grupo.grupo.nombre|upper}} - {{grupo.materia.nombre}}</a></li>
+							{% endfor %}
+							{% if not grupos %}
+							<li><a href="javascript:void(0)">No est&aacute;s inscrito en alg&uacute;n grupo</a></li>
+							{% endif %}
+						</ul>
+					</li>
+					{% endif %}
+
+					{% if user.tipo == 1 %}
+						<li class="{% block inscripcion %}{% endblock%}">
+							<a href="{% url 'inscripcion' %}"><i class="glyphicon glyphicon-hand-right"></i>Inscripci&oacute;n</a>
+						</li>
+					{% endif %}
+
 					<!-- ADMIN NAV -->
 					{% if user.is_admin %}
 					<li class="{% block alumnos %}{% endblock%}">
@@ -102,8 +128,13 @@
 							<li><a href="{% url 'clases-nuevo' %}">Crear nueva</a></li>
 						</ul>
 					</li>
-					<li class="{% block boletines %}{% endblock%}">
-						<a href=""><i class="glyphicon glyphicon-bullhorn"></i>Boletines</a>
+
+					<li class="{% block horarios %}{% endblock%}">
+						<a href="" class="expand"><i class="glyphicon glyphicon-time"></i>Horarios</a>
+						<ul>
+							<li><a href="{% url 'horarios' %}">Todas</a></li>
+							<li><a href="{% url 'horarios-nuevo' %}">Asignar</a></li>
+						</ul>
 					</li>
 					{% endif %}
 					<!-- fin ADMIN NAV -->
@@ -132,6 +163,7 @@
 	<script src="{% static 'util/jquery-1.10.2.min.js' %}"></script>
 	<script src="{% static 'util/bootstrap/js/bootstrap.min.js' %}"></script>
 	<script src="{% static 'util/datepicker/js/bootstrap-datepicker.js' %}"></script>
+	<script src="{% static 'util/timepicker/js/bootstrap-timepicker.min.js' %}"></script>
 	<script src="{% static 'util/selectric/js/jquery.selectric.min.js' %}"></script>
 	<script src="{% static 'js/base.min.js' %}"></script>
 </body>

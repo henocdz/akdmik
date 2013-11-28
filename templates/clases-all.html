@@ -12,6 +12,7 @@
 				<tr>
 					<td>Materia</td>
 					<td>Grupo</td>
+					<td>Inscritos</td>
 					<td>Profesor</td>
 					<td>Editar</td>
 				</tr>
@@ -20,6 +21,7 @@
 					<tr>
 						<td>{{clase.materia.nombre}}</td>
 						<td>{{clase.grupo.nombre}}</td>
+						<td>{{clase.inscritos}}</td>
 						<td>{{clase.profesor.get_full_name}}</td>
 						<td><a href="{% url 'clases-editar' clase.id%}" class=""><i class="glyphicon glyphicon-pencil"></i></a></td>
 					</tr>

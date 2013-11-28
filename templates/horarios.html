@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+{% block horarios %}active{% endblock%}
+
+{% block content %}
+	<div class="akbox col-md-6 col-md-offset-3">
+		<div class="akhead">
+			<strong>Nuevo Horario</strong>
+		</div>
+		<div class="akbody">
+			{% if to_do%}
+			<form class="blocks" method="POST" action="{% url 'horarios-editar' id_e %}">
+			{% else %}
+			<form class="blocks" method="POST" action="{% url 'horarios-nuevo' %}">
+			{% endif %}
+				{% csrf_token %}
+				{{ form.as_p }}
+				
+				{% if to_do%}
+				<input type="submit" value="Editar" />
+				{% else %}
+				<input type="submit" value="Agregar" />
+				{% endif %}
+		</div>
+	</div>
+{% endblock%}

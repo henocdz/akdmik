@@ -31,5 +31,8 @@ $(function(){
 	})
 
 	$('#id_fecha_nacimiento').datepicker({format: 'dd/mm/yyyy'});
-
+	$('.timeI').timepicker({
+		minuteStep: 5,
+		showMeridian: false
+	});
 })

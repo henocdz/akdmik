@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+{% block horarios %}active{% endblock%}
+
+{% block content %}
+	<div class="akbox col-md-12">
+		<div class="akhead">
+			<strong>Grupos</strong>
+		</div>
+		<div class="akbody">
+			{% if horarios %}
+			<table class="table table-striped">
+				<tr>
+					<td>Clase</td>
+					<td>D&iacute;a</td>
+					<td>Inicio</td>
+					<td>Fin</td>
+					<td>Editar</td>
+				</tr>
+
+				{% for horario in horarios %}
+					<tr>
+						<td>{{horario.clase.grupo.nombre}} - {{horario.clase.materia.keyname}}</td>
+						<td>{{horario.dia}}</td>
+						<td>{{horario.hora_inicio}}</td>
+						<td>{{horario.hora_fin}}</td>
+						<td><a href="{% url 'horarios-editar' horario.id%}" class=""><i class="glyphicon glyphicon-pencil"></i></a></td>
+					</tr>
+				{% endfor %}
+			</table>
+			{% else %}
+				<p class="alert alert-warning">No hay horarios &gt;&gt; <a href="{% url 'horarios-nuevo' %}">Agregar</a></p>
+			{% endif %}
+		</div>
+	</div>
+{% endblock%}

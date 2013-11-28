@@ -12,8 +12,54 @@ from app import models as AMod
 import unicodedata
 @login_required
 def home(request):
-	print request.user.admin
-	return render_to_response('index.html',{'user': request.user }, RequestContext(request))
+	if request.user.tipo is 1:
+		template_name = 'index_e.html'
+	elif request.user.tipo is 2:
+		template_name = 'index_p.html'
+	else:
+		template_name = 'index.html'
+
+	pack = defaultPack(request)
+	return render_to_response(template_name,pack, RequestContext(request))
+
+@login_required
+def perfil(request,username):
+	pack = defaultPack(request)
+	return render_to_response('perfil.html',pack, RequestContext(request))
+
+@login_required
+def grupo(request, nombre):
+	pack = defaultPack(request)
+	return render_to_response('grupo.html',pack, RequestContext(request))
+
+def inscripcion(request):
+	pack = defaultPack(request)
+	return render_to_response('inscripcion.html', pack, RequestContext(request))
+
+def defaultPack(request):
+	"Datos por Default segun el tipo de usuario enviados al index correspondiente"
+	if request.user.tipo is 1:
+		pack = {
+			'user': request.user,
+			'grupos': request.user.clases.all
+		}
+		print pack
+	elif request.user.tipo is 2:
+		pack = {
+			'user': request.user,
+			'grupos': list(AMod.Clase.objects.filter(profesor = request.user.pk ))
+		}
+	else:
+		boletines = list(AMod.Boletin.objects.all().order_by('-date'))
+		pack = {
+			'user': request.user,
+			'form': BoletinForm(),
+			'boletines': boletines
+		}
+
+	return pack
+
+
 
 @login_required
 @admin_required
@@ -21,9 +67,8 @@ def alumnos(request):
 	alls = AMod.AUser.objects.all().filter(tipo = 1, active=True).order_by('nombre')
 	return render_to_response('alumnos-all.html', {'user': request.user, 'alumnos': alls}, RequestContext(request))
 
-def logoout(request):
-	logout(request)
-	return redirect(reverse('home'))
+
+
 
 @login_required
 @admin_required
@@ -57,16 +102,19 @@ class AlumnoNuevoView(View):
 			AForm.save()
 
 			user = AMod.AUser.objects.get(username=request.POST['username'])
-			password = (user.ap_paterno[0:2] + user.ap_materno[0:1] + user.nombre[0:1] + user.fecha_nacimiento.strftime("%y%m%d"))
-			password = password.lower()
-			password = ''.join((c for c in unicodedata.normalize('NFD', password) if unicodedata.category(c) != 'Mn'))
-			password = password.upper()
-			print "\n\n\n" + password
-			user.set_password(str(password))
-			user.save()
+			generatePassword(user)
 
 			return redirect(reverse('alumnos'))
 		return render_to_response(self.template_name,{'user': request.user, 'form': AForm }, RequestContext(request))
+
+def generatePassword(user):
+	" Genera el CURP y lo establece como contraseña del usuario dado "
+	password = (user.ap_paterno[0:2] + user.ap_materno[0:1] + user.nombre[0:1] + user.fecha_nacimiento.strftime("%y%m%d"))
+	password = password.lower()
+	password = ''.join((c for c in unicodedata.normalize('NFD', password) if unicodedata.category(c) != 'Mn'))
+	password = password.upper()
+	user.set_password(str(password))
+	user.save()
 
 class AlumnoEditarView(View):
 	template_name = 'alumnos-editar.html'
@@ -95,6 +143,8 @@ class AlumnoEditarView(View):
 
 		if AForm.is_valid():
 			AForm.save()
+			user = AMod.AUser.objects.get(username=request.POST['username'])
+			generatePassword(user)
 			return redirect(reverse('alumnos'))
 
 		return render_to_response(self.template_name,{'user': request.user,'id_e':id, 'form': AForm }, RequestContext(request))
@@ -139,15 +189,8 @@ class ProfesorNuevoView(View):
 
 		if AForm.is_valid():
 			AForm.save()
-
 			user = AMod.AUser.objects.get(username=request.POST['username'])
-			password = (user.ap_paterno[0:2] + user.ap_materno[0:1] + user.nombre[0:1] + user.fecha_nacimiento.strftime("%y%m%d"))
-			password = password.lower()
-			password = ''.join((c for c in unicodedata.normalize('NFD', password) if unicodedata.category(c) != 'Mn'))
-			password = password.upper()
-			user.tipo = 2
-			user.set_password(str(password))
-			user.save()
+			generatePassword(user)
 
 			return redirect(reverse('profesores'))
 		return render_to_response(self.template_name,{'user': request.user, 'form': AForm }, RequestContext(request))
@@ -179,6 +222,8 @@ class ProfesorEditarView(View):
 
 		if AForm.is_valid():
 			AForm.save()
+			user = AMod.AUser.objects.get(username=request.POST['username'])
+			generatePassword(user)
 			return redirect(reverse('profesores'))
 
 		return render_to_response(self.template_name,{'user': request.user,'id_e':id, 'form': AForm }, RequestContext(request))
@@ -404,6 +449,9 @@ class ClaseEditarView(View):
 			}, RequestContext(request))
 
 #------------------------------------------
+def logoout(request):
+	logout(request)
+	return redirect(reverse('home'))
 
 class LoginView(View):
 	template_name = 'login.html'
@@ -431,3 +479,76 @@ class LoginView(View):
 			return redirect('/')
 
 
+#---------------------------------------
+
+def horarios(request):
+	horarios = AMod.Horario.objects.all()
+	return render_to_response('horarios-all.html',{'horarios': horarios},RequestContext(request))
+
+class HorarioNuevoView(View):
+	template_name = 'horarios.html'
+
+	@method_decorator(login_required)
+	@method_decorator(admin_required)
+	def get(self,request):
+		HForm = HorarioForm()
+		return render_to_response(self.template_name, {
+				'user': request.user,
+				'id_e': 0,
+				'to_do': False,
+				'form': HForm
+			}, RequestContext(request))
+
+	@method_decorator(login_required)
+	@method_decorator(admin_required)
+	def post(self, request):
+		HForm = HorarioForm(request.POST)
+
+		if HForm.is_valid():
+			HForm.save()
+			return redirect(reverse('horarios'))
+
+		return render_to_response(self.template_name,{
+				'user': request.user,
+				'id_e': 0,
+				'to_do': False,
+				'form': HForm
+			}, RequestContext(request))
+
+class HorarioEditarView(View):
+	template_name = 'horarios.html'
+	@method_decorator(login_required)
+	@method_decorator(admin_required)
+	def get(self,request,id):
+		try:
+			i = AMod.Horario.objects.get(pk=id)
+		except:
+			return redirect(reverse('horarios'))
+		HForm = HorarioForm(instance=i)
+
+		return render_to_response(self.template_name, {
+				'user': request.user,
+				'id_e': id,
+				'to_do': True,
+				'form': HForm
+			}, RequestContext(request))
+
+	@method_decorator(login_required)
+	@method_decorator(admin_required)
+	def post(self, request,id):
+		try:
+			i = AMod.Horario.objects.get(pk=id)
+		except:
+			return redirect(reverse('horarios'))
+		HForm = HorarioForm(request.POST, instance=i)
+
+		if HForm.is_valid():
+			HForm.save()
+			return redirect(reverse('horarios'))
+
+		return render_to_response(self.template_name,{
+				'user': request.user,
+				'id_e': id,
+				'to_do': True,
+				'form': HForm
+			}, RequestContext(request))

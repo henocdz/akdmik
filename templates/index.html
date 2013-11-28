@@ -1,1 +1,41 @@
 {% extends 'base.html' %}
+
+{% block content %}
+
+<div class="akbox col-md-5">
+	<div class="akhead">
+		<strong>Agregar Boletin</strong>
+	</div>
+	<div class="akbody">
+		<form class="blocks" method="POST" action="">
+		
+			{% csrf_token %}
+			{{ form.as_p }}
+
+			<input type="submit" value="Agregar" />
+		</form>
+	</div>
+</div>
+
+<div class="akbox col-md-6 col-md-offset-1">
+	<div class="akhead">
+		<strong>Boletines</strong>
+	</div>
+	<div id="boletines" class="akbody">
+		{% if boletines %}
+		<ul>
+			{% for boletin in boletines %}
+				<li>
+					<h4><strong>{{boletin.titulo}}</strong></h4>
+					{{boletin.texto}}
+					<time>{{boletin.date}}</time>
+				</li>
+			{% endfor %}
+		{% else %}
+		</ul>
+		<strong>No hay boletines</strong>
+		{% endif %}
+	</div>
+</div>
+
+{% endblock %}

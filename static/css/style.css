@@ -22,10 +22,12 @@ nav #nav ul li a{text-decoration:none;color:#aeb2b7;display:block;height:100%;pa
 .greenbg{background:#bbd861}
 .bluebg{background:#5bd1f5}
 .errorlist{background:rgba(255,108,96,0.7);width:95%;list-style:none;border-radius:5px;padding:2px;color:#fff;border:1px solid #ff6c60;margin-top:1em}
+#boletines ul{display:block;list-style:none}#boletines ul li{border-bottom:1px solid #aeb2b7}#boletines ul li time{text-align:right;display:block;font-style:italic}
 .akbox{background:#fff;border-radius:5px;padding:0}.akbox .akhead{display:block;border-bottom:1px solid #aeb2b7;padding:1em}
-.akbox .akbody{display:block;padding:1em}.akbox .akbody form{display:block;width:95%;margin:0 auto}.akbox .akbody form.blocks input,.akbox .akbody form.blocks label{display:block;width:98%;border-radius:5px}
-.akbox .akbody form.inline input,.akbox .akbody form.inline label{display:block}
-.akbox .akbody form input{border:1px solid #f1f2f7;padding:5px 10px;outline:0;margin-bottom:10px}
+.akbox .akbody{display:block;padding:1em}.akbox .akbody form{display:block;width:95%;margin:0 auto}.akbox .akbody form.blocks input,.akbox .akbody form.blocks textarea,.akbox .akbody form.blocks label{display:block;width:98%;border-radius:5px}
+.akbox .akbody form.inline input,.akbox .akbody form.inline label,.akbox .akbody form.inline textarea{display:block}
+.akbox .akbody form input,.akbox .akbody form textarea{border:1px solid #f1f2f7;padding:5px 10px;outline:0;margin-bottom:10px}
 .akbox .akbody form label{font-weight:bold}
+.akbox .akbody form textarea{max-width:98%;height:120px}
 .akbox .akbody form input[type=text]:focus,.akbox .akbody form input[type=password]:focus{border:1px solid #5bd1f5}
 @media (max-width:640px){#usernav{display:none} nav>#nav{width:100%;height:auto;position:absolute} #container #main{margin-left:0}}@media (max-width:420px){header .logo{display:none} header #notifications{margin-top:15px}}

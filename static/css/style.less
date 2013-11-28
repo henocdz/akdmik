@@ -266,6 +266,24 @@ nav{
 	margin-top: 1em;
 }
 
+#boletines{
+	ul{
+		display: block;
+		list-style: none;
+
+		li{
+			time{
+				text-align: right;
+				display: block;
+				font-style : italic;
+			}
+
+			border-bottom: 1px solid @graytext;
+
+		}
+	}
+}
+
 .akbox{
 	background: @white;
 	border-radius: 5px;
@@ -288,7 +306,7 @@ nav{
 			margin: 0 auto;
 
 			&.blocks{
-				input,label{
+				input,textarea,label{
 					display: block;
 					width: 98%;
 					border-radius: 5px;
@@ -296,12 +314,12 @@ nav{
 			}
 
 			&.inline{
-				input,label{
+				input,label, textarea{
 					display: block;
 				}
 			}
 
-			input{
+			input, textarea{
 				border: 1px solid @graybg;
 				padding: 5px 10px;
 				outline: 0;
@@ -310,6 +328,11 @@ nav{
 
 			label{
 				font-weight: bold;
+			}
+
+			textarea{
+				max-width: 98%;
+				height: 120px;
 			}
 
 			input[type=text], input[type=password]{

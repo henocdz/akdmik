@@ -23,6 +23,7 @@ class AUser(AbstractBaseUser,PermissionsMixin):
 	active = models.BooleanField(default=True)
 	USERNAME_FIELD = "username"
 	objects = AUserManager()
+	clases = models.ManyToManyField('Clase')
 
 	def get_full_name(self):
 		return self.nombre + ' ' + self.ap_paterno + ' ' + self.ap_materno
@@ -48,6 +49,9 @@ class AUser(AbstractBaseUser,PermissionsMixin):
 	def __unicode__(self):
 		return self.username +  ' - ' +  self.get_full_name()
 
+	class Meta:
+		verbose_name = 'alumno o profesor'
+
 class Materia(models.Model):
 	keyname = models.CharField(max_length=10, verbose_name="Clave de Materia", unique=True)
 	nombre = models.CharField(max_length=100, verbose_name="Nombre", unique=True)
@@ -67,9 +71,13 @@ class Clase(models.Model):
 	materia = models.ForeignKey(Materia, verbose_name="Materia")
 	grupo = models.ForeignKey(Grupo, verbose_name="Grupo")
 	profesor = models.ForeignKey(AUser, verbose_name="Profesor")
+	inscritos = models.IntegerField()
 
 	class Meta:
 		unique_together = ('materia', 'grupo', 'profesor')
+	
+	def link_name(self):
+		return self.grupo.nombre+"."+self.materia.nombre.replace(' ','_')
 
 	def __unicode__(self):
 		return self.materia.nombre + ' .. ' + self.grupo.nombre
@@ -83,7 +91,14 @@ class Publicacion(models.Model):
 		return self.creador.username + " - " + self.pertenece.materia.nombre
 
 class Horario(models.Model):
-	dia = models.CharField(max_length=10)
+	dia = models.CharField(max_length=10, choices=(
+		('L', 'Lunes'),
+		('M', 'Martes'),
+		('X', 'Miércoles'),
+		('J', 'Jueves'),
+		('V', 'Viernes'),
+		('S', 'Sábado'),
+	))
 	hora_inicio = models.TimeField()
 	hora_fin = models.TimeField()
 	clase = models.ForeignKey(Clase)
@@ -133,3 +148,12 @@ class Task(models.Model):
 
 	def __unicode__(self):
 		return self.usuario.username
+
+class Boletin(models.Model):
+	admin = models.ForeignKey(AUser)
+	titulo = models.CharField(max_length=140)
+	texto = models.TextField(null=True)
+	date = models.DateTimeField(auto_now_add=True)
+
+	def __unicode__(self):
+		return self.admin.get_full_name()
