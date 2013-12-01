@@ -93,7 +93,7 @@ class Clase(models.Model):
 	materia = models.ForeignKey(Materia, verbose_name="Materia")
 	grupo = models.ForeignKey(Grupo, verbose_name="Grupo")
 	profesor = models.ForeignKey(AUser, verbose_name="Profesor")
-	inscritos = models.IntegerField()
+	inscritos = models.IntegerField(blank=True, default=0)
 
 	class Meta:
 		unique_together = ('materia', 'grupo', 'profesor')

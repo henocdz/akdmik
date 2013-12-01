@@ -5,6 +5,7 @@
 	<table class="table table-bordered table-striped">
 
 		<tr>
+			<td rowspan="2">Grupo</td>
 			<td rowspan="2">Materia</td>
 			<td rowspan="2">Profesor</td>
 			<td colspan="6">Horario</td>
@@ -22,6 +23,7 @@
 
 		{% for c in clases %}
 			<tr>
+				<td>{{c.grupo.nombre}}</td>
 				<td>{{c.materia.nombre}}</td>
 				<td>{{c.profesor.get_full_name}}</td>
 				<td>
@@ -55,7 +57,8 @@
 					{% endfor %}
 				</td>
 				<td>
-					<button class="btn btn-alert"><i class="glyphicon glyphicon-download-alt"></i></button>
+					<button class="btn btn-success registry_c" data-nnombre="{{c.grupo.nombre}} -  {{c.materia.nombre}}"  data-clase="{{c.pk}}"><i class="glyphicon glyphicon-download-alt"></i></button>
+					<!-- <button class="btn btn-success"><div class="progress small"></div></button> -->
 				</td>
 			</tr>
 		{% endfor %}

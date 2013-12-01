@@ -35,12 +35,11 @@ urlpatterns = patterns('',
     
     # -------- ALUMNOS
 
-
     # -------- PROFESORES
 
-    url(r'^grupos/$', grupos, name='grupos'),
-    url(r'^grupos/nuevo/$', GrupoNuevoView.as_view(), name='grupos-nuevo'),
-    url(r'^grupos/editar/(?P<id>[0-9]{1,12})/$', GrupoEditarView.as_view(), name='grupos-editar'),
+    # url(r'^grupos/$', grupos, name='grupos'),
+    # url(r'^grupos/nuevo/$', GrupoNuevoView.as_view(), name='grupos-nuevo'),
+    # url(r'^grupos/editar/(?P<id>[0-9]{1,12})/$', GrupoEditarView.as_view(), name='grupos-editar'),
 
     # -------- REALTIME PATHs
 
@@ -57,6 +56,7 @@ urlpatterns = patterns('',
 
     #----- INSCRIPCION
     url(r'^inscripcion/$', 'app.views.inscripcion', name="inscripcion"),
+    url(r'^inscripcion/inscribir/$', inscribir, name="inscribir-clase"),
 
     url(r'^logout/$', logoout, name='logout'),
     url(r'^login/$', LoginView.as_view(), name='login'),

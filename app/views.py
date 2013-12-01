@@ -7,9 +7,11 @@ from django.template import RequestContext
 from django.contrib.auth import login, authenticate, logout
 from django.core.urlresolvers import reverse
 from app.decorators import admin_required
+from django.http import HttpResponse
 from app.forms import *
 from app import models as AMod
 import unicodedata
+import json
 @login_required
 def home(request):
 	if request.user.tipo is 1:
@@ -32,13 +34,47 @@ def grupo(request, nombre):
 	pack = defaultPack(request)
 	return render_to_response('grupo.html',pack, RequestContext(request))
 
+@login_required
 def inscripcion(request):
 	pack = defaultPack(request)
-	pack['clases'] = AMod.Clase.objects.all()
-	for p in pack['clases']:
-		print p.horarioMiercoles()
-		
+	clases = AMod.Clase.objects.all()
+	a_clases = list(request.user.clases.all())
+
+	pack['clases'] = [clase for clase in clases if clase not in a_clases]
+	print pack['clases']
+
 	return render_to_response('inscripcion.html', pack, RequestContext(request))
+
+@login_required
+def inscribir(request):
+	if not request.is_ajax():
+		pack = {'status': 404}
+		return HttpResponse(json.dumps(pack), content_type="application/json")
+
+	try:
+		clase_pk = int(request.POST['clase'])
+		clase = AMod.Clase.objects.get(pk=clase_pk)
+	except:
+		pack = {'status': 0, 'error': 'No existe la clase'}
+		return HttpResponse(json.dumps(pack), content_type="application/json")
+
+	if clase.inscritos >= clase.grupo.capacidad:
+		pack = {'status': 0, 'error': 'No hay cupo'}
+		return HttpResponse(json.dumps(pack), content_type="application/json")
+
+	try:
+		u = request.user
+		u.clases.add(clase)
+		clase.inscritos += 1
+		clase.save()
+		u.save()
+	except Exception as e:
+		pack = {'status': 0, 'error': e}
+		return HttpResponse(json.dumps(pack), content_type="application/json")
+
+
+	pack = {'status': 1, 'error': None}
+	return HttpResponse(json.dumps(pack), content_type="application/json")
 
 def defaultPack(request):
 	"Datos por Default segun el tipo de usuario enviados al index correspondiente"

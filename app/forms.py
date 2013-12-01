@@ -19,6 +19,7 @@ class GrupoForm(forms.ModelForm):
 class ClaseForm(forms.ModelForm):
 	class Meta:
 		model = Clase
+		exclude = ['inscritos']
 	def __init__(self,*args, **kwargs):
 		super(ClaseForm, self).__init__(*args,**kwargs)
 		self.fields['profesor'].queryset = AUser.objects.filter(tipo=2)
