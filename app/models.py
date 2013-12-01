@@ -67,6 +67,28 @@ class Grupo(models.Model):
 	def __unicode__(self):
 		return self.nombre
 
+class Horario(models.Model):
+	dia = models.CharField(max_length=10, choices=(
+		('L', 'Lunes'),
+		('M', 'Martes'),
+		('X', 'Miércoles'),
+		('J', 'Jueves'),
+		('V', 'Viernes'),
+		('S', 'Sábado'),
+	))
+	hora_inicio = models.TimeField()
+	hora_fin = models.TimeField()
+	clase = models.ForeignKey('Clase')
+
+	class Meta:
+		unique_together = ('dia', 'hora_inicio', 'hora_fin', 'clase')
+
+	def getTime(self):
+		return str(self.hora_inicio.strftime("%H:%M")) + ' - ' + str(self.hora_fin.strftime("%H:%M"))
+
+	def __unicode(self):
+		return self.dia + ' de ' + str(self.hora_inicio.strftime("%H:%M")) + ' a: ' + str(self.hora_fin.strftime("%H:%M"))
+
 class Clase(models.Model):
 	materia = models.ForeignKey(Materia, verbose_name="Materia")
 	grupo = models.ForeignKey(Grupo, verbose_name="Grupo")
@@ -79,6 +101,24 @@ class Clase(models.Model):
 	def link_name(self):
 		return self.grupo.nombre+"."+self.materia.nombre.replace(' ','_')
 
+	def horarioLunes(self):
+		return Horario.objects.filter(clase=self.pk, dia='L')
+
+	def horarioMartes(self):
+		return Horario.objects.filter(clase=self.pk, dia='M')
+
+	def horarioMiercoles(self):
+		return Horario.objects.filter(clase=self.pk, dia='X')
+
+	def horarioJueves(self):
+		return Horario.objects.filter(clase=self.pk, dia='J')
+
+	def horarioViernes(self):
+		return Horario.objects.filter(clase=self.pk, dia='V')
+
+	def horarioSabado(self):
+		return Horario.objects.filter(clase=self.pk, dia='S')
+
 	def __unicode__(self):
 		return self.materia.nombre + ' .. ' + self.grupo.nombre
 
@@ -90,18 +130,6 @@ class Publicacion(models.Model):
 	def __unicode__(self):
 		return self.creador.username + " - " + self.pertenece.materia.nombre
 
-class Horario(models.Model):
-	dia = models.CharField(max_length=10, choices=(
-		('L', 'Lunes'),
-		('M', 'Martes'),
-		('X', 'Miércoles'),
-		('J', 'Jueves'),
-		('V', 'Viernes'),
-		('S', 'Sábado'),
-	))
-	hora_inicio = models.TimeField()
-	hora_fin = models.TimeField()
-	clase = models.ForeignKey(Clase)
 
 	def __unicode__(self):
 		return self.dia + " - " + self.clase.profesor

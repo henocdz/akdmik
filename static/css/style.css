@@ -1,5 +1,6 @@
 @import url(http://fonts.googleapis.com/css?family=Open+Sans:300,400,600);
 *{padding:0;margin:0}
+td{vertical-align:middle !important}
 body,html{background:#f1f2f7;font-family:'Open Sans',Helvetica,Arial;width:100%;height:100%}
 a{text-decoration:none;color:#aeb2b7}a:hover,a:focus,a:active{text-decoration:none;color:#aeb2b7}
 header{background:#fff;display:block;height:60px;left:0;padding:0 15px;position:fixed;right:0;top:0;width:100%;z-index:1000}header .btn{background:#fff}header .btn:active{background:rgba(174,178,183,0.2);box-shadow:none}

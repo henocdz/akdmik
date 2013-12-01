@@ -34,6 +34,10 @@ def grupo(request, nombre):
 
 def inscripcion(request):
 	pack = defaultPack(request)
+	pack['clases'] = AMod.Clase.objects.all()
+	for p in pack['clases']:
+		print p.horarioMiercoles()
+		
 	return render_to_response('inscripcion.html', pack, RequestContext(request))
 
 def defaultPack(request):

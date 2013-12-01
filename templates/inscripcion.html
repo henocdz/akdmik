@@ -2,4 +2,62 @@
 {% block inscripcion %}active{% endblock %}
 
 {% block content %}
+	<table class="table table-bordered table-striped">
+
+		<tr>
+			<td rowspan="2">Materia</td>
+			<td rowspan="2">Profesor</td>
+			<td colspan="6">Horario</td>
+			<td rowspan="2">Inscribir</td>
+		</tr>
+
+		<tr>
+			<td>Lunes</td>
+			<td>Martes</td>
+			<td>Mi&eacute;rcoles</td>
+			<td>Jueves</td>
+			<td>Viernes</td>
+			<td>S&aacute;bado</td>
+		</tr>
+
+		{% for c in clases %}
+			<tr>
+				<td>{{c.materia.nombre}}</td>
+				<td>{{c.profesor.get_full_name}}</td>
+				<td>
+					{% for h in c.horarioLunes %}
+						<p>{{h.getTime}}</p>
+					{% endfor %}
+				</td>
+				<td>
+					{% for h in c.horarioMartes %}
+						<p>{{h.getTime}}</p>
+					{% endfor %}
+				</td>
+				<td>
+					{% for h in c.horarioMiercoles %}
+						<p>{{h.getTime}}</p>
+					{% endfor %}
+				</td>
+				<td>
+					{% for h in c.horarioJueves %}
+						<p>{{h.getTime}}</p>
+					{% endfor %}
+				</td>
+				<td>
+					{% for h in c.horarioViernes %}
+						<p>{{h.getTime}}</p>
+					{% endfor %}
+				</td>
+				<td>
+					{% for h in c.horarioViernes %}
+						<p>{{h.getTime}}</p>
+					{% endfor %}
+				</td>
+				<td>
+					<button class="btn btn-alert"><i class="glyphicon glyphicon-download-alt"></i></button>
+				</td>
+			</tr>
+		{% endfor %}
+	</table>
 {% endblock %}
